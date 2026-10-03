@@ -82,6 +82,10 @@ On the prefab, you should find:
 - The `CharacterAppearanceMangController` script, which has a list of `Mang Controllers`. Every Mang VFX needs to have a new mang controller entry that is registered here. Alongside this, the `skill infos` section also allows for activation of mangs on specific Skill IDs.
 - And last but not least, the `CharacterAppearanceUpdateBuffState` script, which allows you to activate effects based on the stack of a buff. Populate the `Active Effect` list with a reference to a VFX prefab in order to activate it.
 
+**NOTE**
+
+If you are going to make an Identity, remove the Abnormality related scripts, navigate to the scripts folder, and replace with the corresponding Identity/Personality variants.
+
 Within `ScaleAndPositionPivot`, and `PivotForAnim`, you will find:
 - `SpinePivot`, which holds a `SpineRenderer`
 - `SpRenderer`, which holds all the blood renders and is the unit's Sprite Renderer.
