@@ -1,10 +1,11 @@
-using System.IO;
-using System.Text.Json;
 using Addressable;
 using BepInEx;
+using CustomAssetLoader.Managers.SFX;
 using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.Injection;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using System.IO;
+using System.Text.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
@@ -156,6 +157,7 @@ public static class BundleManager
 
     private static void UnloadLoadedModBundles()
     {
+        CustomAssetLoader.Managers.SFX.SoundCueCache.Clear();
         foreach (KeyValuePair<string, AssetBundle> pair in LoadedBundles)
         {
             AssetBundle bundle = pair.Value;
@@ -980,7 +982,7 @@ public static class BundleManager
             BundleLog.Error($"AssetBundle.LoadFromFile failed: {cacheKey}");
             return false;
         }
-
+        CustomAssetLoader.Managers.SFX.BundleSfxScanner.ScanBundle(bundle, cacheKey);
         LoadedBundles[cacheKey] = bundle;
         return true;
     }
