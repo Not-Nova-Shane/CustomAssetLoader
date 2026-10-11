@@ -1,8 +1,9 @@
-﻿using BepInEx;
+using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using CustomAssetLoader.Patches.Features;
 using HarmonyLib;
+using Il2CppInterop.Runtime.Injection;
 
 namespace CustomAssetLoader;
 
@@ -18,10 +19,14 @@ public sealed class Plugin : BasePlugin
         BundleLog.Bind(Config);
 
         var harmony = new Harmony(GUID);
+
         BundlePatches.Apply(harmony);
         BattleEffectListPatches.Apply(harmony);
         CustomBundleMotionPatches.Apply(harmony);
         BankPatches.Apply(harmony);
+
+        // SFX pipeline — FMOD Core playback, no banks.
+        MotionsSFXPatches.Apply(harmony);
 
         BundleLog.Loaded($"{PLUGIN_NAME} v{VERSION} loaded.");
     }
